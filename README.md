@@ -1,3 +1,11 @@
+# 每次上线需检查修改
+
+## 1.修改 index.html 中的页面标题
+
+## 2.修改 src/view/login/index.vue 中的 sub_title 副标题提示语
+
+## 3.修改 src/view/home/index.vue 中的 rule 抽奖规则
+
 # vue-h5-template
 
 基于 vue3 + vite + （nutui or varlet or vant） + sass + viewport 适配方案 + axios 封装，构建手机端模板脚手架
