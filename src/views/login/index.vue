@@ -1,9 +1,9 @@
 <template>
   <div class="login">
-    <img class="logo" src="../../assets/images/logo.png"/>
+    <img class="logo" src="../../assets/images/logo.png" />
     <div class="header_content">
       <div class="title">欢迎幸运抽奖</div>
-      <div class="sub_title">尚硅谷十周年校庆活动进行时</div>
+      <div class="sub_title">尚硅谷暑期活动进行时</div>
     </div>
     <div class="form_content">
       <div class="lable">手机号</div>
@@ -13,10 +13,8 @@
       </div>
       <div class="form-item betwen">
         <input type="number" v-model="formData.code" placeholder="请输入验证码" />
-        <div class="code_btn" 
-          @click="sendCode"
-          :disabled="disabled">
-          {{codeMsg}}
+        <div class="code_btn" @click="sendCode" :disabled="disabled">
+          {{ codeMsg }}
         </div>
       </div>
     </div>
@@ -26,7 +24,7 @@
 
 <script lang="ts" setup name="LoginPage">
   import { reactive, ref } from 'vue';
-  
+
   import { getValidateCode } from '/@/api';
   import { showToast } from 'vant';
   import { useUserStore } from '/@/store/modules/user';
@@ -39,37 +37,37 @@
   const userTel = reactive([
     {
       required: true,
-      message: "请输入手机号",
-      trigger: "onBlur"
+      message: '请输入手机号',
+      trigger: 'onBlur',
     },
     {
       validator: (value) => {
         return /^1[23456789]\d{9}$/.test(value);
       },
-      message: "请输入正确格式的手机号"
-    }
+      message: '请输入正确格式的手机号',
+    },
   ]);
-  const codeMsg =  ref("获取短信验证码")
-  const codeNum = ref(60)
-  const disabled = ref(false)
-  const codeRes = ref()
+  const codeMsg = ref('获取短信验证码');
+  const codeNum = ref(60);
+  const disabled = ref(false);
+  const codeRes = ref();
 
   // 获取短信验证码
   const sendCode = async () => {
     // 验证手机号格式是否正确
-    const rulePhone: any = userTel[1]
+    const rulePhone: any = userTel[1];
     if (!rulePhone.validator(formData.phone)) {
       showToast('请输入正确格式的手机号');
       return;
-    };
+    }
 
     if (disabled.value) {
-      return
+      return;
     }
     // 获取验证码
-    const res: any = await getValidateCode(formData.phone)
+    const res: any = await getValidateCode(formData.phone);
     // 保存code值
-    codeRes.value = res.body
+    codeRes.value = res.body;
     // 禁用按钮
     disabled.value = true;
     // 倒计时
@@ -82,11 +80,11 @@
       clearInterval(timer);
       codeNum.value = 60;
       disabled.value = false;
-      codeMsg.value = "获取短信验证码";
+      codeMsg.value = '获取短信验证码';
     }, 60000);
-  }
+  };
   const onSubmit = () => {
-    const { phone, code } = formData
+    const { phone, code } = formData;
     if (phone && code) {
       userStore.login(formData);
     }
@@ -118,7 +116,7 @@
         font-family: Microsoft YaHei;
         font-weight: bold;
         font-size: 68px;
-        color: #FFFFFF;
+        color: #ffffff;
         line-height: 89px;
       }
 
@@ -126,13 +124,13 @@
         font-size: 32px;
         font-family: Microsoft YaHei;
         font-weight: 400;
-        color: #FFFFFF;
+        color: #ffffff;
         line-height: 89px;
       }
     }
 
     .form_content {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       margin: 0 50px;
       padding: 0 20px;
       border-radius: 50px 50px 0 0;
@@ -165,7 +163,7 @@
         }
         input {
           border: none;
-          background:rgba(255,255,255,0.01);
+          background: rgba(255, 255, 255, 0.01);
           flex: 1;
           color: #020000;
           font-weight: 500;
@@ -180,17 +178,16 @@
           font-size: 26px;
           font-family: Microsoft YaHei;
           font-weight: 400;
-          color: #FFFFFF;
+          color: #ffffff;
           background-image: url('../../assets/images/code_btn_bg.png');
           background-size: 100% 100%;
         }
       }
       .betwen {
         justify-content: space-between;
-        
       }
     }
-    
+
     .login_btn {
       width: 612px;
       height: 100px;
@@ -206,7 +203,7 @@
       font-size: 26px;
       font-family: Microsoft YaHei;
       font-weight: 400;
-      color: #FFFFFF;
+      color: #ffffff;
     }
   }
 </style>
